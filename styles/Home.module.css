@@ -1,21 +1,19 @@
 .container {
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 2rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer {
   display: flex;
   flex: 1;
-  padding: 2rem 0;
+  padding: 1rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
@@ -42,18 +40,31 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.about {
+  display: flex;
+  color: #666;
+  
 }
 
 .title,
 .description {
-  text-align: center;
+  text-align: left;
 }
 
 .description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+  margin: 1rem 0 2rem;
+  font-size: 1.2rem;
 }
 
 .code {
@@ -67,29 +78,32 @@
 
 .grid {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   flex-wrap: wrap;
   max-width: 800px;
 }
 
 .card {
-  margin: 1rem;
-  padding: 1.5rem;
+  max-width: 100%;
+  margin: 1rem 0;
+  padding: 1rem 0;
   text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
+  border-bottom: 1px solid #eaeaea;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
+  color: #121212;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
   color: #0070f3;
-  border-color: #0070f3;
+}
+
+.card .card-header {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
 }
 
 .card h2 {
@@ -97,16 +111,16 @@
   font-size: 1.5rem;
 }
 
+.card .created {
+  color: #999;
+  text-align: right;
+}
+
 .card p {
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
+}  
 
 @media (max-width: 600px) {
   .grid {
