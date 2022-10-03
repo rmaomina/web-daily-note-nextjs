@@ -1,1 +1,1 @@
-# Ppomo with NextJS
+# Daily note with NextJS
