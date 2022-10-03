@@ -1,38 +1,42 @@
 import Head from "next/head";
+import Link from "next/link";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Client } from "@notionhq/client";
+import styles from "./index.module.css";
+import { getNotionDatabases } from '../lib/notion'
 
-export default function Home({ notes }) {
+export default function Home({ posts }) {
 	return (
 		<div className={styles.container}>
 			<Head>
 				<title>Daily Note</title>
-				<meta name="description" content="Daily Note App by MA" />
+				<meta name="description" content="MA의 시시콜콜한 일상" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<main className={styles.main}>
-				<div className={styles.title}>
-					<h1>하루</h1>
-					<div className={styles.about}>
-						<a href="https://github.com/rmaomina/web-ppomo-react">Github</a>
-					</div>
-				</div>
+				<header className={styles.header}>
+          <div className={styles.title}>
+            <h1>시시콜콜</h1>
+            <div className={styles.about}>
+              <a href="https://github.com/rmaomina/web-ppomo-react">Github</a>
+            </div>
+          </div>
+          <p className={styles.description}>시시콜콜한 일상 이야기를 기록합니다.</p>
+        </header>
 
-				<p className={styles.description}>일상을 기록합니다.</p>
 				<div className={styles.grid}>
-					{notes.map((daily) => (
-						<div key={daily.id} className={styles.card}>
-							<div className="card-header">
-								<h2>
-									Title 여기에 타이틀이 들어간다
-									{daily.icon.emoji ? <span>{daily.icon.emoji}</span> : ""}
-									{daily.properties.note.title[0].plain_text}
-								</h2>
-								<p className={styles.created}>{daily.created_time.split("T")[0]}</p>
-							</div>
-							<div className="card-body">여기에 일기가 추가됩니다.</div>
+					{posts.map((post) => (
+						<div key={post.id} className={styles.card}>
+              <h2>
+                {post.icon.emoji ? <span className={styles.emoji}>{post.icon.emoji}</span> : ""}
+                {post.properties.Title.title[0].plain_text}
+              </h2>
+              <div className={styles.desc}>
+                <p className={styles.created}>{post.created_time.split("T")[0]}</p>
+                <Link href={`/${post.id}`}>
+                  <a> 더보기 →</a>
+                </Link>
+              </div>
 						</div>
 					))}
 				</div>
@@ -51,15 +55,14 @@ export default function Home({ notes }) {
 }
 
 export async function getStaticProps() {
-	const notion = new Client({ auth: process.env.NOTION_API_KEY });
-	const response = await notion.databases.query({
-		database_id: process.env.NOTION_DATABASE_ID,
-	});
-  
+	const database = await getNotionDatabases()
+
 	return {
 		props: {
-			notes: response.results,
+			posts: database,
 		},
 		revalidate: 1,
 	};
 }
+
+
